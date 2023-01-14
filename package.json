@@ -5,7 +5,8 @@
   "scripts": {
     "start": "open index.html",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "postinstall": "node .scripts/badge.js"
   },
   "author": "Yahya Gilany <gilanyym@ucmail.uc.edu>",
   "license": "UNLICENSED",
@@ -15,8 +16,10 @@
     "bootstrap": "^4.5.0",
     "directory-tree": "^2.2.4",
     "jest": "^26.0.1",
+    "line-replace": "^2.0.1",
     "lodash": "^4.17.15",
-    "rewire": "^6.0.0"
+    "rewire": "^6.0.0",
+    "simple-git": "^2.5.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.8.0",
