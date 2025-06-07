@@ -57,19 +57,13 @@ async function updateMessagesInChatBox() {
 
 // ✅ 6. Create sendMessages() function
 function sendMessages(username, text) {
-  const newMessage = {
-    sender: username,
-    text: text,
-    timestamp: new Date()
-  };
+    const newMessage = {
+        sender: username,
+        text: text,
+        timestamp: new Date()
+    }
 
-  return fetch(serverURL, {
-    method: `POST`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newMessage)
-  });
+    $.post(serverURL, newMessage);
 }
 
 // ✅ 7. Add event listener to Send button
