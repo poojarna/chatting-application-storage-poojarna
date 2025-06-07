@@ -2,10 +2,10 @@
 const nameInput = document.getElementById("my-name-input");
 const messageInput = document.getElementById("my-message");
 const sendButton = document.getElementById("send-button");
-const chatBox = document.querySelector(".chat");
+const chatBox = document.getElementById("chat");
 
 // ✅ 2. Define the server URL
-const serverURL = `https://it3049c-chat.fly.dev/messages`;
+const serverURL = `https://it3049c-chat.fly.dev`;
 
 // ✅ 3. Function to fetch messages from the server
 function fetchMessages() {

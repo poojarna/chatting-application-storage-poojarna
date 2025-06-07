@@ -61,7 +61,7 @@ describe('Chatting Logic', function () {
     // Run the actual function
     await app.updateMessagesInChatBox();
 
-    const chatBox = document.querySelector('.chat');
+    const chatBox = document.getElementById("chat");
 
     // Validate DOM content
     expect(chatBox).not.toBeNull();
