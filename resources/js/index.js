@@ -52,3 +52,6 @@ function formatMessage(message, myNameInput) {
         `
     }
 }
+
+const MILLISECONDS_IN_TEN_SECONDS = 10000;
+setInterval(updateMessages, MILLISECONDS_IN_TEN_SECONDS);
