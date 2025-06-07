@@ -53,9 +53,6 @@ function formatMessage(message, myNameInput) {
     }
 }
 
-const MILLISECONDS_IN_TEN_SECONDS = 10000;
-setInterval(updateMessages, MILLISECONDS_IN_TEN_SECONDS);
-
 function sendMessages(username, text) {
     const newMessage = {
         sender: username,
@@ -80,5 +77,8 @@ sendButton.addEventListener("click", function(sendButtonClickEvent) {
     sendMessages(sender,message);
     myMessage.value = "";
 });
+
+const MILLISECONDS_IN_TEN_SECONDS = 10000;
+setInterval(updateMessages, MILLISECONDS_IN_TEN_SECONDS);
 
 updateMessages(); // <- Initial call so messages load immediately on page load
