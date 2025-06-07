@@ -80,3 +80,5 @@ sendButton.addEventListener("click", function(sendButtonClickEvent) {
     sendMessages(sender,message);
     myMessage.value = "";
 });
+
+updateMessages(); // <- Initial call so messages load immediately on page load
