@@ -96,3 +96,13 @@ setInterval(updateMessagesInChatBox, MILLISECONDS_IN_TEN_SECONDS);
 
 // ✅ 9. Call the function once immediately
 updateMessagesInChatBox();
+
+// Add this to the very bottom of your index.js for testing purposes:
+if (typeof module !== 'undefined') {
+  module.exports = {
+    fetchMessages,
+    formatMessage,
+    updateMessagesInChatBox,
+    sendMessages
+  };
+}
