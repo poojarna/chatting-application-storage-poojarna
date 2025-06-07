@@ -49,22 +49,26 @@ async function updateMessagesInChatBox() {
 
   let formattedMessages = "";
   messages.forEach(message => {
-    formattedMessages += formatMessage(message, nameInput.value);
+    formattedMessages += formatMessage(message, nameInput?.value || "");
   });
 
-  chatBox.innerHTML = formattedMessages;
+  if (chatBox) {
+    chatBox.innerHTML = formattedMessages;
+  }
 }
+
 
 // ✅ 6. Create sendMessages() function
 function sendMessages(username, text) {
-    const newMessage = {
-        sender: username,
-        text: text,
-        timestamp: new Date()
-    }
+  const newMessage = {
+    sender: username,
+    text: text,
+    timestamp: new Date()
+  };
 
-    $.post(serverURL, newMessage);
+  return $.post(serverURL, newMessage);
 }
+
 
 // ✅ 7. Add event listener to Send button
 sendButton.addEventListener("click", function (event) {
