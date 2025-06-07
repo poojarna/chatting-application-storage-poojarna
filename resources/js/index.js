@@ -1,19 +1,19 @@
-// Get references to HTML elements
+// ✅ 1. Create references to the HTML elements
 const nameInput = document.getElementById("my-name-input");
 const messageInput = document.getElementById("my-message");
 const sendButton = document.getElementById("send-button");
 const chatBox = document.getElementById("chat");
 
-// Server URL
+// ✅ 2. Define the server URL
 const serverURL = `https://it3049c-chat.fly.dev/messages`;
 
-// Fetch messages from the server
+// ✅ 3. Function to fetch messages from the server
 function fetchMessages() {
     return fetch(serverURL)
         .then(response => response.json());
 }
 
-// Format a message into HTML
+// ✅ 4. Formatter function for messages
 function formatMessage(message, myNameInput) {
     const time = new Date(message.timestamp);
     const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
@@ -43,12 +43,12 @@ function formatMessage(message, myNameInput) {
     }
 }
 
-// This function updates the chat box with the latest messages
+// ✅ 5. Create updateMessagesInChatBox() function as described
 async function updateMessagesInChatBox() {
     const messages = await fetchMessages();
 
-    // Optional debug
-    // console.log("Messages fetched:", messages);
+    // Debug log to check structure (can be commented out if not needed)
+    // console.log(messages);
 
     let formattedMessages = "";
     messages.forEach(message => {
@@ -58,7 +58,7 @@ async function updateMessagesInChatBox() {
     chatBox.innerHTML = formattedMessages;
 }
 
-// Send a message to the server
+// ✅ 6. Create sendMessages() function
 function sendMessages(username, text) {
     const newMessage = {
         sender: username,
@@ -75,7 +75,7 @@ function sendMessages(username, text) {
     });
 }
 
-// Handle Send button click
+// ✅ 7. Add event listener to Send button
 sendButton.addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -87,10 +87,12 @@ sendButton.addEventListener("click", function (event) {
             .then(updateMessagesInChatBox); // Refresh chat after sending
     }
 
-    messageInput.value = "";
+    messageInput.value = ""; // Clear input field
 });
 
-// Call update on page load and every 10 seconds
+// ✅ 8. Set interval to update chatbox every 10 seconds
 const MILLISECONDS_IN_TEN_SECONDS = 10000;
-updateMessagesInChatBox(); // Initial call
 setInterval(updateMessagesInChatBox, MILLISECONDS_IN_TEN_SECONDS);
+
+// ✅ 9. Call the function once immediately
+updateMessagesInChatBox();
