@@ -44,7 +44,7 @@ describe('Chatting Logic', function () {
     expect(global.fetch).toHaveBeenCalledTimes(1);
 
     // Check that chatBox has formatted message
-    const chatBox = document.getElementById('chat');
+    const chatBox = document.querySelector(".chat");
     expect(chatBox.innerHTML).toContain('Hello!');
     expect(chatBox.innerHTML).toContain('mine messages'); // your own message class
   });
