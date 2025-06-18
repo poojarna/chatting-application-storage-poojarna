@@ -14,7 +14,7 @@ Instructions to this assignment can be found [here](https://reedws.github.io/IT3
 
 ## Self-Evaluation:
 
-how many points out of 20 do you deserve on this assignment: 
+how many points out of 20 do you deserve on this assignment: I deserve 19/20 points on this assignment. First, I accepted the github classroom assignment link. Then, I coded the chatting application per the assignment instructions. I have added the classroom header and other features per the instructions.  
 
 ## Self-Reflection:
 <!-- Write your self-reflection under this line -->
