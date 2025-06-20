@@ -9,12 +9,12 @@ Instructions to this assignment can be found [here](https://reedws.github.io/IT3
 ## Checklist:
 - [x] update the assignment checks above to the correct link
 - [x] make sure the assignment checks pass
-- [ ] fill out the self evaluation and Reflection
+- [x] fill out the self evaluation and Reflection
 - [ ] submit the repository link on Canvas
 
 ## Self-Evaluation:
 
-how many points out of 20 do you deserve on this assignment: I believe I deserve 19 out of 20 points on this assignment. I accepted the GitHub Classroom link and followed the instructions to build the chat application. I included the classroom header, website title, favicon, and chat heading. For layout, I used Bootstrap input groups and icons as described. I added mock chat messages in index.html and styled them in style.css. Creating the chat layout was challenging, but I worked through it. I set up constants, wrote updateMessagesInChatBox(), and used fetchMessages() to load data from the server. I added a formatter function to display messages with usernames. I looped through messages in updateMessages() and used setInterval() to update every 10 seconds. I created a sendMessages() function with JSON formatting using jQuery and added a click event listener to the send button. Finally, I published the project with GitHub Pages.
+How many points out of 20 do you deserve on this assignment: I believe I deserve 19 out of 20 points on this assignment. I accepted the GitHub Classroom link and followed the instructions to build the chat application. I included the classroom header, website title, favicon, and chat heading. For layout, I used Bootstrap input groups and icons as described. I added mock chat messages in index.html and styled them in style.css. Creating the chat layout was challenging, but I worked through it. I set up constants, wrote updateMessagesInChatBox(), and used fetchMessages() to load data from the server. I added a formatter function to display messages with usernames. I looped through messages in updateMessages() and used setInterval() to update every 10 seconds. I created a sendMessages() function with JSON formatting using jQuery and added a click event listener to the send button. Finally, I published the project with GitHub Pages.
 
 ## Self-Reflection:
 <!-- Write your self-reflection under this line -->
