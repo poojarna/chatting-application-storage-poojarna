@@ -231,26 +231,24 @@
 
         <!-- Our own Scripts -->
         <script src="resources/js/index.js"></script>
-       <script>
+        <script>
         document.addEventListener('DOMContentLoaded', function () {
         const nameInput = document.getElementById('my-name-input');
         const messageInput = document.getElementById('my-message');
         const sendButton = document.getElementById('send-button');
         const saveNameButton = document.getElementById('save-name-button');
 
-        // Initial state: disable message input + send button
+        // Always start with chat disabled
         messageInput.disabled = true;
         sendButton.disabled = true;
 
-        // Check if name is already saved
+        // If a name is stored, preload it but keep chat disabled until "Save Name"
         const savedName = localStorage.getItem('chatName');
         if (savedName) {
             nameInput.value = savedName;
-            messageInput.disabled = false;
-            sendButton.disabled = false;
         }
 
-        // Save name on button click
+        // Save name and enable chat
         saveNameButton.addEventListener('click', () => {
             const name = nameInput.value.trim();
             if (name !== '') {
@@ -263,17 +261,14 @@
             }
         });
 
-        // Allow name updates: save again if changed manually
-        nameInput.addEventListener('change', () => {
-            const updatedName = nameInput.value.trim();
-            if (updatedName !== '') {
-                localStorage.setItem('chatName', updatedName);
-            }
+        // Allow user to modify name any time
+        nameInput.addEventListener('input', () => {
+            // Chat is disabled again if user starts editing
+            messageInput.disabled = true;
+            sendButton.disabled = true;
         });
         });
         </script>
-
-
 
     </body>
 </html>
