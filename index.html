@@ -227,5 +227,47 @@
 
         <!-- Our own Scripts -->
         <script src="resources/js/index.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const nameInput = document.getElementById('my-name-input');
+                const messageInput = document.getElementById('my-message');
+                const sendButton = document.getElementById('send-button');
+
+                // Create save button dynamically (or add one in HTML)
+                const saveNameButton = document.createElement('button');
+                saveNameButton.textContent = 'Save Name';
+                saveNameButton.className = 'btn btn-primary ml-2';
+                nameInput.parentNode.appendChild(saveNameButton);
+
+                // Initial state
+                const savedName = localStorage.getItem('chatName');
+                if (savedName) {
+                    nameInput.value = savedName;
+                    messageInput.disabled = false;
+                    sendButton.disabled = false;
+                } else {
+                    messageInput.disabled = true;
+                    sendButton.disabled = true;
+                }
+
+                // Save name handler
+                saveNameButton.addEventListener('click', () => {
+                    const name = nameInput.value.trim();
+                    if (name !== '') {
+                        localStorage.setItem('chatName', name);
+                        messageInput.disabled = false;
+                        sendButton.disabled = false;
+                        alert('Name saved! You can now send messages.');
+                    }
+                });
+
+                // Optional: update name on blur (or re-save)
+                nameInput.addEventListener('change', () => {
+                    const name = nameInput.value.trim();
+                    localStorage.setItem('chatName', name);
+                });
+            });
+
+        </script>
     </body>
 </html>
