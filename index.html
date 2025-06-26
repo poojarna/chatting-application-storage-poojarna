@@ -263,59 +263,61 @@
         <!-- Our own Scripts -->
         <script src="resources/js/index.js"></script>
         <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const nameInput = document.getElementById('my-name-input');
-        const messageInput = document.getElementById('my-message');
-        const sendButton = document.getElementById('send-button');
-        const saveNameButton = document.getElementById('save-name-button');
-        const toggle = document.getElementById('darkModeToggle');
-        const prefersDark = localStorage.getItem('darkMode') === 'enabled';
+            document.addEventListener('DOMContentLoaded', function () {
+            const nameInput = document.getElementById('my-name-input');
+            const messageInput = document.getElementById('my-message');
+            const sendButton = document.getElementById('send-button');
+            const saveNameButton = document.getElementById('save-name-button');
+            const toggle = document.getElementById('darkModeToggle');
 
-        // Always start with chat disabled
-        messageInput.disabled = true;
-        sendButton.disabled = true;
-
-        // If a name is stored, preload it but keep chat disabled until "Save Name"
-        const savedName = localStorage.getItem('chatName');
-        if (savedName) {
-            nameInput.value = savedName;
-        }
-
-        // Save name and enable chat
-        saveNameButton.addEventListener('click', () => {
-            const name = nameInput.value.trim();
-            if (name !== '') {
-                localStorage.setItem('chatName', name);
-                messageInput.disabled = false;
-                sendButton.disabled = false;
-                alert('Name saved! You can now send messages.');
-            } else {
-                alert('Please enter your name.');
-            }
-        });
-
-        // Allow user to modify name any time
-        nameInput.addEventListener('input', () => {
-            // Chat is disabled again if user starts editing
+            // Always start with chat disabled
             messageInput.disabled = true;
             sendButton.disabled = true;
-        });
 
-        if (prefersDark) {
-        document.body.classList.add('dark-mode');
-        toggle.checked = true;
-        }
+            // If a name is stored, preload it but keep chat disabled until "Save Name"
+            const savedName = localStorage.getItem('chatName');
+            if (savedName) {
+                nameInput.value = savedName;
+            }
 
-        toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
-        }
+            // Save name and enable chat
+            saveNameButton.addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                if (name !== '') {
+                    localStorage.setItem('chatName', name);
+                    messageInput.disabled = false;
+                    sendButton.disabled = false;
+                    alert('Name saved! You can now send messages.');
+                } else {
+                    alert('Please enter your name.');
+                }
+            });
+
+            // Allow user to modify name any time
+            nameInput.addEventListener('input', () => {
+                messageInput.disabled = true;
+                sendButton.disabled = true;
+            });
+
+            // Dark mode toggle logic
+            const prefersDark = localStorage.getItem('darkMode') === 'enabled';
+            if (prefersDark) {
+                document.body.classList.add('dark-mode');
+                toggle.checked = true;
+            }
+
+            toggle.addEventListener('change', () => {
+                if (toggle.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
         });
         </script>
+
 
     </body>
 </html>
