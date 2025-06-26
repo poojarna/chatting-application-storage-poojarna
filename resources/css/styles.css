@@ -180,4 +180,5 @@ body.dark-mode .sender-info {
 body.dark-mode footer {
     background-color: #1c1c1c;
     color: #e0e0e0;
+    border-top: 1px solid #333;
 }
