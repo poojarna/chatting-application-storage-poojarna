@@ -133,21 +133,6 @@ body.dark-mode {
     color: #e0e0e0;
 }
 
-/* Style adjustments for messages */
-body.dark-mode .mine .message {
-    background-color: #1e88e5; /* Adjusted blue */
-    color: white;
-}
-
-body.dark-mode .yours .message {
-    background-color: #424242; /* Dark gray */
-    color: white;
-}
-
-body.dark-mode .sender-info {
-    color: #b0bec5; /* Muted gray */
-}
-
 /* Input and button styling */
 body.dark-mode input,
 body.dark-mode .form-control {
@@ -161,4 +146,33 @@ body.dark-mode .btn {
     background-color: #2c2c2c;
     color: white;
     border-color: #555;
+}
+
+/* Dark mode overrides for message bubbles */
+body.dark-mode .yours .message {
+    background-color: #424242;
+}
+
+body.dark-mode .yours .message:before {
+    background: #424242;
+}
+
+body.dark-mode .yours .message:after {
+    background: #121212;
+}
+
+body.dark-mode .mine .message {
+    background: #1e88e5;
+}
+
+body.dark-mode .mine .message:before {
+    background: #1e88e5;
+}
+
+body.dark-mode .mine .message:after {
+    background: #121212;
+}
+
+body.dark-mode .sender-info {
+    color: #b0bec5;
 }
