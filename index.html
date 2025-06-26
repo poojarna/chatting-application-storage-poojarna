@@ -230,38 +230,43 @@
         <script src="resources/js/index.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                const nameInput = document.getElementById('my-name-input');
-                const messageInput = document.getElementById('my-message');
-                const sendButton = document.getElementById('send-button');
+            const nameInput = document.getElementById('my-name-input');
+            const messageInput = document.getElementById('my-message');
+            const sendButton = document.getElementById('send-button');
+            const saveNameButton = document.getElementById('save-name-button');
 
-                // Initial state
-                const savedName = localStorage.getItem('chatName');
-                if (savedName) {
-                    nameInput.value = savedName;
+            // Check localStorage for saved name
+            const savedName = localStorage.getItem('chatName');
+            if (savedName) {
+                nameInput.value = savedName;
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+            } else {
+                messageInput.disabled = true;
+                sendButton.disabled = true;
+            }
+
+            // Save name when button is clicked
+            saveNameButton.addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                if (name !== '') {
+                    localStorage.setItem('chatName', name);
                     messageInput.disabled = false;
                     sendButton.disabled = false;
+                    alert(`Name saved as "${name}"! You can now send messages.`);
                 } else {
-                    messageInput.disabled = true;
-                    sendButton.disabled = true;
+                    alert('Please enter a name first.');
                 }
-
-                // Save name handler
-                saveNameButton.addEventListener('click', () => {
-                    const name = nameInput.value.trim();
-                    if (name !== '') {
-                        localStorage.setItem('chatName', name);
-                        messageInput.disabled = false;
-                        sendButton.disabled = false;
-                        alert('Name saved! You can now send messages.');
-                    }
-                });
-
-                // Optional: update name on blur (or re-save)
-                nameInput.addEventListener('change', () => {
-                    const name = nameInput.value.trim();
-                    localStorage.setItem('chatName', name);
-                });
             });
+
+            // Optional: auto-update name in localStorage on change
+            nameInput.addEventListener('change', () => {
+                const name = nameInput.value.trim();
+                if (name) {
+                    localStorage.setItem('chatName', name);
+                }
+            });
+        });
 
         </script>
     </body>
