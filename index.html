@@ -232,37 +232,34 @@
         <!-- Our own Scripts -->
         <script src="resources/js/index.js"></script>
        <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const nameInput = document.getElementById('my-name-input');
-    const messageInput = document.getElementById('my-message');
-    const sendButton = document.getElementById('send-button');
-    const saveNameButton = document.getElementById('save-name-button');
+            document.addEventListener('DOMContentLoaded', function () {
+            const nameInput = document.getElementById('my-name-input');
+            const messageInput = document.getElementById('my-message');
+            const sendButton = document.getElementById('send-button');
+            const saveNameButton = document.getElementById('save-name-button');
 
-    // Disable message input and send button on load
-    messageInput.disabled = true;
-    sendButton.disabled = true;
+            // Always clear the stored name on page load
+            localStorage.removeItem('chatName');
 
-    // If name is saved, fill it in but don't enable chat until user explicitly saves again
-    const savedName = localStorage.getItem('chatName');
-    if (savedName) {
-        nameInput.value = savedName;
-        // still keep chat disabled until user confirms
-    }
+            // Disable chat inputs initially
+            messageInput.disabled = true;
+            sendButton.disabled = true;
 
-    // Enable chat inputs only after name is saved
-    saveNameButton.addEventListener('click', () => {
-        const name = nameInput.value.trim();
-        if (name !== '') {
-            localStorage.setItem('chatName', name);
-            messageInput.disabled = false;
-            sendButton.disabled = false;
-            alert(`Name saved! You can now send messages.`);
-        } else {
-            alert('Please enter a name first.');
-        }
-    });
-});
-</script>
+            // Save name and enable inputs
+            saveNameButton.addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                if (name !== '') {
+                    localStorage.setItem('chatName', name);
+                    messageInput.disabled = false;
+                    sendButton.disabled = false;
+                    alert(`Name saved! You can now send messages.`);
+                } else {
+                    alert('Please enter a name first.');
+                }
+            });
+        });
+        </script>
+
 
     </body>
 </html>
