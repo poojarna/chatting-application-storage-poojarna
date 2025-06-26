@@ -234,12 +234,6 @@
                 const messageInput = document.getElementById('my-message');
                 const sendButton = document.getElementById('send-button');
 
-                // Create save button dynamically (or add one in HTML)
-                const saveNameButton = document.createElement('button');
-                saveNameButton.textContent = 'Save Name';
-                saveNameButton.className = 'btn btn-primary ml-2';
-                nameInput.parentNode.appendChild(saveNameButton);
-
                 // Initial state
                 const savedName = localStorage.getItem('chatName');
                 if (savedName) {
