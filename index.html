@@ -278,6 +278,8 @@
             const savedName = localStorage.getItem('chatName');
             if (savedName) {
                 nameInput.value = savedName;
+                 messageInput.disabled = false;
+                 sendButton.disabled = false;
             }
 
             // Save name and enable chat
