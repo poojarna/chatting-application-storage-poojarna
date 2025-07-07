@@ -327,6 +327,28 @@
                 console.error("Geolocation is not supported by your browser.");
             }
 
+            const apiKey = e90a98a75d8d4220b4a8dff77f738b9d;
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                console.log("Latitude:", lat, "Longitude:", lng);
+
+                const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+
+                fetch(geocodeUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village || "Unknown location";
+                        const locationDisplay = document.createElement('p');
+                        locationDisplay.textContent = `You are in: ${city}`;
+                        document.querySelector('header .jumbotron').appendChild(locationDisplay);
+                    })
+                    .catch(err => console.error("Geocoding error:", err));
+            });
+
+
         });
         </script>
 
