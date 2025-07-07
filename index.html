@@ -327,7 +327,7 @@
                 console.error("Geolocation is not supported by your browser.");
             }
 
-            const apiKey = e90a98a75d8d4220b4a8dff77f738b9d;
+            const apiKey = "e90a98a75d8d4220b4a8dff77f738b9d";
 
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
@@ -348,7 +348,7 @@
                     .catch(err => console.error("Geocoding error:", err));
             });
 
-            const weatherApiKey = f34293b91f00b98925f045ac931b087b;
+            const weatherApiKey = "f34293b91f00b98925f045ac931b087b";
 
             fetch(geocodeUrl)
                 .then(response => response.json())
