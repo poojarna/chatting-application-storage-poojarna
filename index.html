@@ -315,6 +315,18 @@
                     localStorage.setItem('darkMode', 'disabled');
                 }
             });
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    console.log("Latitude:", position.coords.latitude);
+                    console.log("Longitude:", position.coords.longitude);
+                }, (error) => {
+                    console.error("Geolocation error:", error);
+                });
+            } else {
+                console.error("Geolocation is not supported by your browser.");
+            }
+
         });
         </script>
 
