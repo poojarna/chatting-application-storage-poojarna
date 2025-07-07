@@ -348,6 +348,34 @@
                     .catch(err => console.error("Geocoding error:", err));
             });
 
+            const weatherApiKey = f34293b91f00b98925f045ac931b087b;
+
+            fetch(geocodeUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village || "Unknown location";
+
+                    // Show city
+                    const locationDisplay = document.createElement('p');
+                    locationDisplay.textContent = `You are in: ${city}`;
+                    document.querySelector('header .jumbotron').appendChild(locationDisplay);
+
+                    // Now fetch weather
+                    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`;
+
+                    return fetch(weatherUrl);
+                })
+                .then(response => response.json())
+                .then(weatherData => {
+                    const temperature = weatherData.main.temp;
+                    const description = weatherData.weather[0].description;
+
+                    const weatherDisplay = document.createElement('p');
+                    weatherDisplay.textContent = `Current weather: ${temperature}°C, ${description}`;
+                    document.querySelector('header .jumbotron').appendChild(weatherDisplay);
+                })
+                .catch(err => console.error("Weather error:", err));
+
 
         });
         </script>
