@@ -263,122 +263,106 @@
         <!-- Our own Scripts -->
         <script src="resources/js/index.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-            const nameInput = document.getElementById('my-name-input');
-            const messageInput = document.getElementById('my-message');
-            const sendButton = document.getElementById('send-button');
-            const saveNameButton = document.getElementById('save-name-button');
-            const toggle = document.getElementById('darkModeToggle');
+    document.addEventListener('DOMContentLoaded', function () {
+        const nameInput = document.getElementById('my-name-input');
+        const messageInput = document.getElementById('my-message');
+        const sendButton = document.getElementById('send-button');
+        const saveNameButton = document.getElementById('save-name-button');
+        const toggle = document.getElementById('darkModeToggle');
 
-            // Always start with chat disabled
+        // Always start with chat disabled
+        messageInput.disabled = true;
+        sendButton.disabled = true;
+
+        const savedName = localStorage.getItem('chatName');
+        if (savedName) {
+            nameInput.value = savedName;
+        }
+
+        saveNameButton.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (name !== '') {
+                localStorage.setItem('chatName', name);
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                alert('Name saved! You can now send messages.');
+            } else {
+                alert('Please enter your name.');
+            }
+        });
+
+        nameInput.addEventListener('input', () => {
             messageInput.disabled = true;
             sendButton.disabled = true;
+        });
 
-            // If a name is stored, preload it but keep chat disabled until "Save Name"
-            const savedName = localStorage.getItem('chatName');
-            if (savedName) {
-                nameInput.value = savedName;
-            }
+        const prefersDark = localStorage.getItem('darkMode') === 'enabled';
+        if (prefersDark) {
+            document.body.classList.add('dark-mode');
+            toggle.checked = true;
+        }
 
-            // Save name and enable chat
-            saveNameButton.addEventListener('click', () => {
-                const name = nameInput.value.trim();
-                if (name !== '') {
-                    localStorage.setItem('chatName', name);
-                    messageInput.disabled = false;
-                    sendButton.disabled = false;
-                    alert('Name saved! You can now send messages.');
-                } else {
-                    alert('Please enter your name.');
-                }
-            });
-
-            // Allow user to modify name any time
-            nameInput.addEventListener('input', () => {
-                messageInput.disabled = true;
-                sendButton.disabled = true;
-            });
-
-            // Dark mode toggle logic
-            const prefersDark = localStorage.getItem('darkMode') === 'enabled';
-            if (prefersDark) {
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
                 document.body.classList.add('dark-mode');
-                toggle.checked = true;
-            }
-
-            toggle.addEventListener('change', () => {
-                if (toggle.checked) {
-                    document.body.classList.add('dark-mode');
-                    localStorage.setItem('darkMode', 'enabled');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    localStorage.setItem('darkMode', 'disabled');
-                }
-            });
-
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    console.log("Latitude:", position.coords.latitude);
-                    console.log("Longitude:", position.coords.longitude);
-                }, (error) => {
-                    console.error("Geolocation error:", error);
-                });
+                localStorage.setItem('darkMode', 'enabled');
             } else {
-                console.error("Geolocation is not supported by your browser.");
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
             }
+        });
 
-            const apiKey = "e90a98a75d8d4220b4a8dff77f738b9d";
+        // 🌍 GEOLOCATION + WEATHER
+        const geocodeApiKey = "e90a98a75d8d4220b4a8dff77f738b9d"; // OpenCage
+        const weatherApiKey = "f34293b91f00b98925f045ac931b087b"; // OpenWeatherMap
 
+        if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
 
-                console.log("Latitude:", lat, "Longitude:", lng);
+                console.log("Latitude:", lat);
+                console.log("Longitude:", lng);
 
-                const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+                const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${geocodeApiKey}`;
 
                 fetch(geocodeUrl)
                     .then(response => response.json())
                     .then(data => {
-                        const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village || "Unknown location";
+                        const city = data.results[0].components.city ||
+                                     data.results[0].components.town ||
+                                     data.results[0].components.village ||
+                                     "Unknown location";
+
+                        // Display location
                         const locationDisplay = document.createElement('p');
                         locationDisplay.textContent = `You are in: ${city}`;
                         document.querySelector('header .jumbotron').appendChild(locationDisplay);
+
+                        // Get weather
+                        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`;
+
+                        return fetch(weatherUrl);
                     })
-                    .catch(err => console.error("Geocoding error:", err));
+                    .then(response => response.json())
+                    .then(weatherData => {
+                        const temperature = weatherData.main.temp;
+                        const description = weatherData.weather[0].description;
+
+                        const weatherDisplay = document.createElement('p');
+                        weatherDisplay.textContent = `Current weather: ${temperature}°C, ${description}`;
+                        document.querySelector('header .jumbotron').appendChild(weatherDisplay);
+                    })
+                    .catch(err => console.error("Weather error:", err));
+            }, (error) => {
+                console.error("Geolocation error:", error);
             });
+        } else {
+            console.error("Geolocation not supported.");
+        }
+    });
+</script>
 
-            const weatherApiKey = "f34293b91f00b98925f045ac931b087b";
-
-            fetch(geocodeUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village || "Unknown location";
-
-                    // Show city
-                    const locationDisplay = document.createElement('p');
-                    locationDisplay.textContent = `You are in: ${city}`;
-                    document.querySelector('header .jumbotron').appendChild(locationDisplay);
-
-                    // Now fetch weather
-                    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`;
-
-                    return fetch(weatherUrl);
-                })
-                .then(response => response.json())
-                .then(weatherData => {
-                    const temperature = weatherData.main.temp;
-                    const description = weatherData.weather[0].description;
-
-                    const weatherDisplay = document.createElement('p');
-                    weatherDisplay.textContent = `Current weather: ${temperature}°C, ${description}`;
-                    document.querySelector('header .jumbotron').appendChild(weatherDisplay);
-                })
-                .catch(err => console.error("Weather error:", err));
-
-
-        });
-        </script>
 
 
     </body>
